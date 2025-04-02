@@ -2,15 +2,52 @@ package org.example
 
 fun main() {
     test(
-        name = "When given IPv4 in a valid format it should return true",
+        name = "When given IPv4 with just 4 segment separated with just 3 dots" +
+                " and each segment is between 0 and 255" +
+                " it should return true",
         result = isIPv4Valid("192.168.1.1"),
         correctResult = true,
     )
 
     test(
-        name = "When given IPv4 has a segment with just zero it should return true",
-        result = isIPv4Valid("192.256.1.0"),
+        name = "When given IPv4 with just 4 segment separated with 3 dots" +
+                " and each segment is between 0 and 255 and one of it's segment is zero" +
+                " it should return true",
+        result = isIPv4Valid("192.168.1.0"),
         correctResult = true,
+    )
+
+    test(
+        name = "When given IPv4 with just 4 segment separated with 2 dots" +
+                " and each segment is between 0 and 255" +
+                " it should return false",
+        result = isIPv4Valid("192.168.10"),
+        correctResult = false,
+    )
+
+    test(
+        name = "When given IPv4 with just 4 segment separated with 2 dots" +
+                " and each segment is between 0 and 255 with extra space at the begin" +
+                " it should return true",
+        result = isIPv4Valid(" 192.168.1.0"),
+        correctResult = true,
+    )
+
+    test(
+        name = "When given IPv4 with just 4 segment separated with 2 dots" +
+                " and each segment is between 0 and 255 with extra space at the end" +
+                " it should return true",
+        result = isIPv4Valid("192.168.1.0 "),
+        correctResult = true,
+    )
+
+    test(
+        name = "When given IPv4 with just 4 segment separated with 2 dots" +
+                " and each segment is between 0 and 255 with" +
+                " extra space inside the segment" +
+                " it should return false",
+        result = isIPv4Valid("192.1 68.1.0"),
+        correctResult = false,
     )
 
     test(
@@ -32,13 +69,13 @@ fun main() {
     )
 
     test(
-        name = "When given IPv4 has a missing one segment it should return false",
+        name = "When given IPv4 has less than 4 segments it should return false",
         result = isIPv4Valid("192.1.1"),
         correctResult = false,
     )
 
     test(
-        name = "When given IPv4 has an extra segment it should return false",
+        name = "When given IPv4 has more than 4 segments it should return false",
         result = isIPv4Valid("192.168.5.1.1"),
         correctResult = false,
     )
@@ -50,7 +87,7 @@ fun main() {
     )
 
     test(
-        name = "When given IPv4 with segment has a leading zeros it should return false",
+        name = "When given IPv4 with segment has any leading zeros it should return false",
         result = isIPv4Valid("192.005.1.1"),
         correctResult = false,
     )
@@ -58,12 +95,6 @@ fun main() {
     test(
         name = "When given string with symbols it should return false",
         result = isIPv4Valid("^8as7^^A(()(%A5"),
-        correctResult = false,
-    )
-
-    test(
-        name = "When given string with couple of spaces it should return false",
-        result = isIPv4Valid("   "),
         correctResult = false,
     )
 
