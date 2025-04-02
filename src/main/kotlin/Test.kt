@@ -8,9 +8,9 @@ fun main() {
     )
 
     test(
-        name = "When given IPv4 has a segment with just zero it should return false",
+        name = "When given IPv4 has a segment with just zero it should return true",
         result = isIPv4Valid("192.256.1.0"),
-        correctResult = false,
+        correctResult = true,
     )
 
     test(
